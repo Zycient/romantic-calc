@@ -5,31 +5,31 @@ const ButtonsContainer = () => {
   // ? Need buttons: Backspace, Clear, 0-9, ., /, *, -, +, ROMAN, =
   return (
     <div className="buttons-container grid grid-cols-5 grid-rows-5 gap-1 m-1">
-      <CalcButton displayText="<-" />
-      <CalcButton displayText="C" />
-      <CalcButton displayText="_" />
-      <CalcButton displayText="_" />
-      <CalcButton displayText="_" />
-      <CalcButton displayText="7" />
-      <CalcButton displayText="8" />
-      <CalcButton displayText="9" />
-      <CalcButton displayText="/" />
-      <CalcButton displayText="_" />
-      <CalcButton displayText="4" />
-      <CalcButton displayText="5" />
-      <CalcButton displayText="6" />
-      <CalcButton displayText="*" />
-      <CalcButton displayText="R" />
-      <CalcButton displayText="1" />
-      <CalcButton displayText="2" />
-      <CalcButton displayText="3" />
-      <CalcButton displayText="-" />
-      <CalcButton displayText="_" />
-      <CalcButton displayText="_" />
-      <CalcButton displayText="0" />
-      <CalcButton displayText="." />
-      <CalcButton displayText="+" />
-      <CalcButton displayText="=" />
+      <CalcButton rawText="<-" />
+      <CalcButton rawText="C" />
+      <CalcButton rawText="_" />
+      <CalcButton rawText="_" />
+      <CalcButton rawText="_" />
+      <CalcButton rawText="7" />
+      <CalcButton rawText="8" />
+      <CalcButton rawText="9" />
+      <CalcButton rawText="/" />
+      <CalcButton rawText="_" />
+      <CalcButton rawText="4" />
+      <CalcButton rawText="5" />
+      <CalcButton rawText="6" />
+      <CalcButton rawText="*" />
+      <CalcButton rawText="R" />
+      <CalcButton rawText="1" />
+      <CalcButton rawText="2" />
+      <CalcButton rawText="3" />
+      <CalcButton rawText="-" />
+      <CalcButton rawText="_" />
+      <CalcButton rawText="_" />
+      <CalcButton rawText="0" />
+      <CalcButton rawText="." />
+      <CalcButton rawText="+" />
+      <CalcButton rawText="=" />
     </div>
   );
 };
