@@ -1,0 +1,1 @@
+NOTE: Calculator icon is from Bootstrap Icons project, at this page: https://github.com/twbs/icons/blob/main/icons/calculator.svg
