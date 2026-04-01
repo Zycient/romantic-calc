@@ -21,7 +21,7 @@ const CalcButton = ({ rawText }: props) => {
   };
 
   return (
-    <div className="calc-button rounded-xs bg-linear-to-b from-slate-100 dark:from-slate-700 to-slate-200 dark:to-slate-600 hover:bg-gray-300 dark:hover:bg-gray-600">
+    <div className="calc-button flex justify-center items-center rounded-xs bg-linear-to-b from-slate-100 dark:from-slate-700 to-slate-200 dark:to-slate-600 hover:bg-gray-300 dark:hover:bg-gray-600 select-none cursor-pointer">
       {parseText()}
     </div>
   );
