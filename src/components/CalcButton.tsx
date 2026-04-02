@@ -1,11 +1,13 @@
 import * as React from "react";
 import { BsArrowLeft } from "react-icons/bs";
+import { calcTypes } from "../states/calculationAtom";
 
 type props = {
   rawText: string;
+  calcType?: string;
 };
 
-const CalcButton = ({ rawText }: props) => {
+const CalcButton = ({ rawText, calcType = calcTypes.operandType }: props) => {
   /**
    * Parses incoming text to see if formatting is needed
    * or an icon needs to be returned.

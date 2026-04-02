@@ -1,5 +1,5 @@
 import { useState } from "react";
-import calcLogo from "./assets/bsCalculator.svg"; // ? TODO: replace with free calc logo
+import calcLogo from "./assets/bsCalculator.svg";
 import "./App.css";
 import MenuBar from "./components/MenuBar";
 import CalcContainer from "./components/CalcContainer";
