@@ -6,6 +6,7 @@ import calculationAtom, {
   currentOperator,
 } from "../states/calculationAtom";
 import { useRecoilState } from "recoil";
+import { romanAtom } from "../states/romanAtom";
 
 type props = {
   rawText: string;
@@ -19,6 +20,7 @@ const CalcButton = ({ rawText, calcType = calcTypes.operandType }: props) => {
     useRecoilState(currentOperand);
   const [currentOperatorState, setCurrentOperatorState] =
     useRecoilState(currentOperator);
+  const [romanState, setRomanState] = useRecoilState(romanAtom);
 
   /**
    * Handles incoming text to see if formatting is needed
@@ -49,7 +51,7 @@ const CalcButton = ({ rawText, calcType = calcTypes.operandType }: props) => {
     } else if (calcType === calcTypes.equalsType) {
       alert("Equals");
     } else if (calcType === calcTypes.romanType) {
-      alert("Roman");
+      setRomanState(!romanState);
     } else {
       // Default: Operand
       alert("Operand");
