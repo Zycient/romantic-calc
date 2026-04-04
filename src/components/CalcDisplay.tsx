@@ -22,26 +22,48 @@ const CalcDisplay = () => {
   const operands = useRecoilValue(operandsAtom);
   const operators = useRecoilValue(operatorsAtom);
 
-  // const formatPrimaryDisplay = () => {
-  //   setPrimaryDisplayVal(currentResult);
-  // };
+  const formatSecondaryDisplay = () => {
+    if (operators.length < 1) {
+      // No display on empty operators
+      setSecondaryDisplayVal("");
+    } else {
+      // Create copy of operands
+      const expressionList = JSON.parse(JSON.stringify(operands));
 
-  // ? TODO: figure out operands and operators for this
-  // ! I need to figure out how to store and display =
-  const formatSecondaryDisplay = () => {};
+      // Create copy of operators (reversed for pop functionality)
+      const localOperators = JSON.parse(
+        JSON.stringify(operators),
+      ).reverse() as string[];
+
+      // Iterate copy and splice in operators at every other index
+      console.log("CHECK LOOP"); //? TODO: REMOVE
+      for (let i = 0; i < operands.length; i++) {
+        if (i % 2 !== 0) { // odd
+          // Pop current operator to splice
+          let currentOperator;
+          if (localOperators.length > 0) {
+            currentOperator = localOperators.pop();
+          }
+          // Splice current operator into expression list
+          expressionList.splice(i, 0, currentOperator);
+        } else {
+          continue;
+        }
+      }
+
+      // Reformat into flat string for display
+      setSecondaryDisplayVal(expressionList.join(" "));
+    }
+  };
 
   React.useEffect(() => {
     // Update primary from end result
-    // formatPrimaryDisplay();
     setPrimaryDisplayVal(currentResult);
   }, [currentResult]);
 
   React.useEffect(() => {
     // Update secondary from global operands and operators
-    // NEED at least one of each
-    if (operands.length > 0 && operators.length > 0) {
-      formatSecondaryDisplay();
-    }
+    formatSecondaryDisplay();
   }, [operands, operators]);
 
   return (
