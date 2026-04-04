@@ -1,21 +1,31 @@
 import { atom } from "recoil";
 
-// ? Holds current expression, i.e. 2 + 2
-export const calculationAtom = atom({
-  key: "CalculationState",
-  default: [], // list of string operands/operators to split and parse
+export const operandsAtom = atom({
+  key: "OperandsState",
+  default: <string[]>[], // list of string operands to parse
+});
+
+export const operatorsAtom = atom({
+  key: "OperatorsState",
+  default: <string[]>[], // list of string operators to parse
 });
 
 // ? Holds current operand
-export const currentOperand = atom({
+export const currentOperandAtom = atom({
   key: "CurrentOperandState",
-  default: "",
+  default: "0",
 });
 
 // ? Holds current operator
-export const currentOperator = atom({
+export const currentOperatorAtom = atom({
   key: "CurrentOperatorState",
   default: "",
+});
+
+// ? Holds current numeric result
+export const currentResultAtom = atom({
+  key: "CurrentResultState",
+  default: "0"
 });
 
 export const calcTypes = {
@@ -27,5 +37,3 @@ export const calcTypes = {
   equalsType: "equals",
   romanType: "roman",
 };
-
-export default calculationAtom;

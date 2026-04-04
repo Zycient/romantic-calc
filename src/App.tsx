@@ -17,7 +17,6 @@ const App = () => {
         </div>
         <div className="flex flex-col">
           <h1>Romantic Calc</h1>
-          {/* <p>Calc TODO...</p> */}
           {/* Overall App Container */}
           <div className="app-container max-w-80 min-w-24 flex flex-col border border-gray-100 dark:border-gray-900 bg-gray-200 dark:bg-neutral-900 rounded-xl">
             <MenuBar />
