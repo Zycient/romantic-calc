@@ -1,11 +1,15 @@
 import * as React from "react";
 import CalcButton from "./CalcButton";
 import { calcTypes } from "../states/calculationAtom";
+import { useRecoilValue } from "recoil";
+import { romanAtom } from "../states/romanAtom";
 
 const ButtonsContainer = () => {
+  const isRoman = useRecoilValue(romanAtom);
   
   return (
     // ? TODO: need to figure out manual spacing/stretching of buttons and remove blanks
+    // ? TODO: need to do ternary for regular vs roman rawBtnVal
     <div className="buttons-container grid grid-cols-5 grid-rows-5 gap-1 m-1">
       <CalcButton rawBtnVal="<-" calcType={calcTypes.backspaceType} />
       <CalcButton rawBtnVal="C" calcType={calcTypes.clearType} />
