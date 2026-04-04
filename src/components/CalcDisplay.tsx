@@ -1,24 +1,15 @@
 import * as React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import {
-  primaryDisplayAtom,
-  secondaryDisplayAtom,
-} from "../states/displayAtom";
-import {
-  currentOperandAtom,
   currentResultAtom,
   operandsAtom,
   operatorsAtom,
 } from "../states/calculationAtom";
 
 const CalcDisplay = () => {
-  // ? TODO: might be able to convert display vals to LOCAL only states and remove Recoil states for those
-  const [primaryDisplayVal, setPrimaryDisplayVal] =
-    useRecoilState(primaryDisplayAtom);
-  const [secondaryDisplayVal, setSecondaryDisplayVal] =
-    useRecoilState(secondaryDisplayAtom);
+  const [primaryDisplayVal, setPrimaryDisplayVal] = React.useState("");
+  const [secondaryDisplayVal, setSecondaryDisplayVal] = React.useState("");
   const currentResult = useRecoilValue(currentResultAtom);
-  const currentOperand = useRecoilValue(currentOperandAtom);
   const operands = useRecoilValue(operandsAtom);
   const operators = useRecoilValue(operatorsAtom);
 
@@ -38,7 +29,8 @@ const CalcDisplay = () => {
       // Iterate copy and splice in operators at every other index
       console.log("CHECK LOOP"); //? TODO: REMOVE
       for (let i = 0; i < operands.length; i++) {
-        if (i % 2 !== 0) { // odd
+        // Every odd iteration only
+        if (i % 2 !== 0) {
           // Pop current operator to splice
           let currentOperator;
           if (localOperators.length > 0) {
