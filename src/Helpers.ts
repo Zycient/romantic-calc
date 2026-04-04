@@ -65,7 +65,7 @@ export const doCalculation = (operands: string[], operators: string[]) => {
     // Division
     calcResult = calcOperands[0] / calcOperands[1];
   } else if (calcOperator === "=") {
-    // Equality, special operation
+    // Equals, special operation
     console.log("Equality operator in calculation, ignore");
     // ? TODO: equals early OR equals in succession calculation
   } else {

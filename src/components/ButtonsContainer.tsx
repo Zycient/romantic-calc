@@ -31,7 +31,7 @@ const ButtonsContainer = () => {
       <CalcButton rawBtnVal="0" calcType={calcTypes.operandType} />
       <CalcButton rawBtnVal="." calcType={calcTypes.decimalType} />
       <CalcButton rawBtnVal="+" calcType={calcTypes.operatorType} />
-      <CalcButton rawBtnVal="=" calcType={calcTypes.equalsType} />
+      <CalcButton rawBtnVal="=" calcType={calcTypes.operatorType} />
     </div>
   );
 };

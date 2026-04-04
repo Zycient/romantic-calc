@@ -34,6 +34,5 @@ export const calcTypes = {
   backspaceType: "backspace",
   clearType: "clear",
   decimalType: "decimal",
-  equalsType: "equals",
   romanType: "roman",
 };

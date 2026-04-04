@@ -89,7 +89,7 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
     setCurrentResultState("0");
   };
 
-  const handleOperatorOrEquals = (keepOperator = false) => {
+  const handleOperator = () => {
     // If no operands yet, do nothing
     if (currentOperandState.length < 1) {
       console.log("No operands yet, no operation performed.");
@@ -107,10 +107,11 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
       }
 
       // Append current operand to global list
-      setOperandsState([...operandsState, tempOperand]);
+      const updatedOperands = [...operandsState, tempOperand];
+      setOperandsState(updatedOperands);
 
-      // Do calculation
-      const calculationResult = doCalculation(operandsState, operatorsState);
+      // Do calculation with latest operands
+      const calculationResult = doCalculation(updatedOperands, operatorsState);
 
       // If valid, set calculation result as current and global operand
       if (calculationResult) {
@@ -119,16 +120,9 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
       }
       // ? TODO: see if I need an ELSE case here for invalid result...
 
-      // Clear or keep operator
-      if (keepOperator) {
-        // Operator Type: Set current and global operator
-        setCurrentOperatorState(rawBtnVal);
-        setOperatorsState([...operatorsState, rawBtnVal]);
-      } else {
-        // Equals Type: Clear current and global operator
-        setCurrentOperatorState("");
-        setOperatorsState([]);
-      }
+      // Set current and global operator
+      setCurrentOperatorState(rawBtnVal);
+      setOperatorsState([...operatorsState, rawBtnVal]);
 
       // Update global result if non-null
       if (calculationResult) {
@@ -149,15 +143,13 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
     if (calcType === calcTypes.operandType) {
       handleOperand();
     } else if (calcType === calcTypes.operatorType) {
-      handleOperatorOrEquals(true);
+      handleOperator();
     } else if (calcType === calcTypes.backspaceType) {
       handleBackspace();
     } else if (calcType === calcTypes.clearType) {
       handleClear();
     } else if (calcType === calcTypes.decimalType) {
       handleDecimal();
-    } else if (calcType === calcTypes.equalsType) {
-      handleOperatorOrEquals();
     } else if (calcType === calcTypes.romanType) {
       setRomanState(!romanState);
     } else {
