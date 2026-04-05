@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BsArrowLeft } from "react-icons/bs";
+import { Bs123, BsArrowLeft } from "react-icons/bs";
 import {
   calcTypes,
   currentOperandAtom,
@@ -11,6 +11,11 @@ import {
 import { useRecoilState } from "recoil";
 import { romanAtom } from "../states/romanAtom";
 import { doCalculation } from "../Helpers";
+import { LuDivide, LuMinus, LuPlus } from "react-icons/lu";
+import { RxCross2 } from "react-icons/rx";
+import { PiEqualsBold } from "react-icons/pi";
+import { FaCreativeCommonsZero } from "react-icons/fa";
+import { TbLetterV } from "react-icons/tb";
 
 type props = {
   rawBtnVal: string;
@@ -24,7 +29,7 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
     useRecoilState(currentOperandAtom);
   const [, setCurrentOperatorState] = useRecoilState(currentOperatorAtom);
   const [, setCurrentResultState] = useRecoilState(currentResultAtom);
-  const [romanState, setRomanState] = useRecoilState(romanAtom);
+  const [isRoman, setRomanState] = useRecoilState(romanAtom);
 
   /**
    * Handles incoming text to see if formatting is needed
@@ -32,11 +37,84 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
    * @returns formatted text or icon as needed
    */
   const handleButtonDisplay = () => {
-    // ? TODO: get the remaining icons and add if blocks for those
-    // ? TODO: handle romanToggle and alternate display for those (use ternary in return)
-    // Backspace
     if (rawBtnVal === "<-") {
+      // Backspace
       return <BsArrowLeft />;
+    } else if (rawBtnVal === "/") {
+      // Divide
+      return <LuDivide />;
+    } else if (rawBtnVal === "*") {
+      // Multiply
+      return <RxCross2 />;
+    } else if (rawBtnVal === "-") {
+      // Subtract
+      return <LuMinus />;
+    } else if (rawBtnVal === "+") {
+      // Add
+      return <LuPlus />;
+    } else if (rawBtnVal === "=") {
+      // Equals
+      return <PiEqualsBold />;
+    } else if (rawBtnVal === "R") {
+      // Roman Toggle - display arabic numeral or Roman icon depending on state
+      if (!isRoman) {
+        return <TbLetterV />;
+      } else {
+        return <Bs123 />;
+      }
+    } else if (rawBtnVal === "0") {
+      return isRoman ? <FaCreativeCommonsZero /> : rawBtnVal;
+    } else if (rawBtnVal === "1") {
+      return isRoman ? "I" : rawBtnVal;
+    } else if (rawBtnVal === "2") {
+      return isRoman ? "II" : rawBtnVal;
+    } else if (rawBtnVal === "3") {
+      return isRoman ? "III" : rawBtnVal;
+    } else if (rawBtnVal === "4") {
+      return isRoman ? "IV" : rawBtnVal;
+    } else if (rawBtnVal === "5") {
+      return isRoman ? "V" : rawBtnVal;
+    } else if (rawBtnVal === "6") {
+      return isRoman ? "VI" : rawBtnVal;
+    } else if (rawBtnVal === "7") {
+      return isRoman ? "VII" : rawBtnVal;
+    } else if (rawBtnVal === "8") {
+      return isRoman ? "VIII" : rawBtnVal;
+    } else if (rawBtnVal === "9") {
+      return isRoman ? "IX" : rawBtnVal;
+    } else {
+      return rawBtnVal;
+    }
+  };
+
+  const handleTooltip = () => {
+    if (rawBtnVal === "<-") {
+      // Backspace
+      return "Backspace";
+    } else if (rawBtnVal === "/") {
+      // Divide
+      return "Divide";
+    } else if (rawBtnVal === "*") {
+      // Multiply
+      return "Multiply";
+    } else if (rawBtnVal === "-") {
+      // Subtract
+      return "Subtract";
+    } else if (rawBtnVal === "+") {
+      // Add
+      return "Add";
+    } else if (rawBtnVal === "=") {
+      // Equals
+      return "Equals";
+    } else if (rawBtnVal === "R") {
+      // Roman Toggle
+      return "Toggle between Roman and Arabic numerals";
+    } else if (rawBtnVal === "C") {
+      // Clear
+      return "Clear";
+    } else if (rawBtnVal === ".") {
+      // Decimal
+      return "Decimal";
     } else {
       return rawBtnVal;
     }
@@ -175,7 +253,7 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
     } else if (calcType === calcTypes.decimalType) {
       handleDecimal();
     } else if (calcType === calcTypes.romanType) {
-      setRomanState(!romanState);
+      setRomanState(!isRoman);
     } else {
       // Default: Operand
       handleOperand();
@@ -183,12 +261,26 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
   };
 
   return (
-    <div
-      className="calc-button flex justify-center items-center rounded-xs bg-linear-to-b from-slate-100 dark:from-slate-700 to-slate-200 dark:to-slate-600 hover:bg-gray-300 dark:hover:bg-gray-600 select-none cursor-pointer"
-      onClick={handleClick}
-    >
-      {handleButtonDisplay()}
-    </div>
+    <>
+      {rawBtnVal === "=" && (
+        <div
+          className="calc-button-eq flex justify-center items-center rounded-xs bg-linear-to-b from-indigo-100 dark:from-indigo-700 to-indigo-200 dark:to-indigo-600 hover:bg-gray-300 dark:hover:bg-gray-600 font-semibold select-none cursor-pointer"
+          onClick={handleClick}
+          title={handleTooltip()}
+        >
+          {handleButtonDisplay()}
+        </div>
+      )}
+      {rawBtnVal !== "=" && (
+        <div
+          className="calc-button flex justify-center items-center rounded-xs bg-linear-to-b from-slate-100 dark:from-slate-700 to-slate-200 dark:to-slate-600 hover:bg-gray-300 dark:hover:bg-gray-600 font-semibold select-none cursor-pointer"
+          onClick={handleClick}
+          title={handleTooltip()}
+        >
+          {handleButtonDisplay()}
+        </div>
+      )}
+    </>
   );
 };
 
