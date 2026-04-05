@@ -25,7 +25,6 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
   const [, setCurrentOperatorState] = useRecoilState(currentOperatorAtom);
   const [, setCurrentResultState] = useRecoilState(currentResultAtom);
   const [romanState, setRomanState] = useRecoilState(romanAtom);
-  // const [decimalState, setDecimalState] = React.useState(false); // ? TODO: do I need this???
 
   /**
    * Handles incoming text to see if formatting is needed
@@ -34,7 +33,7 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
    */
   const handleButtonDisplay = () => {
     // ? TODO: get the remaining icons and add if blocks for those
-    // ? TODO: handle romanToggle and alternate display for those
+    // ? TODO: handle romanToggle and alternate display for those (use ternary in return)
     // Backspace
     if (rawBtnVal === "<-") {
       return <BsArrowLeft />;
@@ -56,7 +55,7 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
       setCurrentResultState(rawBtnVal);
     } else {
       //? Handles both (operand operand) and (operand . operand) cases
-      let combinedOperand = currentOperandState + rawBtnVal;
+      const combinedOperand = currentOperandState + rawBtnVal;
       // Append latest button value to pre-existing operand
       setCurrentOperandState(combinedOperand);
 
@@ -110,19 +109,45 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
       const updatedOperands = [...operandsState, tempOperand];
       setOperandsState(updatedOperands);
 
-      // Do calculation with latest operands
-      const calculationResult = doCalculation(updatedOperands, operatorsState);
+      // Set current operator
+      setCurrentOperatorState(rawBtnVal);
+
+      // Set global operator
+      // ? if dupe equals: update local (remove in doCalculation), don't update global
+      // ? if NOT dupe reg ops: update local, update global
+      // ? else (dupe reg ops): don't update local, don't update global
+      let updatedOperators = JSON.parse(JSON.stringify(operatorsState));
+
+      if (rawBtnVal === "=" && updatedOperators.slice(-1)[0] === rawBtnVal) {
+        updatedOperators = [...updatedOperators, rawBtnVal];
+      } else if (!(updatedOperators.slice(-1)[0] === rawBtnVal)) {
+        updatedOperators = [...updatedOperators, rawBtnVal];
+        setOperatorsState(updatedOperators);
+      } else {
+        console.log("Dupe regular operators, don't update local or global");
+      }
+
+      // Do calculation with latest operands and operators
+      const calculationResult = doCalculation(
+        updatedOperands,
+        updatedOperators,
+      );
 
       // If valid, set calculation result as current and global operand
       if (calculationResult) {
-        setCurrentOperandState(calculationResult?.toString());
-        setOperandsState([calculationResult?.toString()]);
-      }
-      // ? TODO: see if I need an ELSE case here for invalid result...
+        // Set calculation result as current operand
+        setCurrentOperandState(calculationResult.toString());
 
-      // Set current and global operator
-      setCurrentOperatorState(rawBtnVal);
-      setOperatorsState([...operatorsState, rawBtnVal]);
+        // Set calculation result as PREVIOUS operand behind current in global
+        setOperandsState([
+          calculationResult.toString(),
+          updatedOperands.slice(-1)[0],
+        ]);
+      } else {
+        console.error("Invalid calculation result in handleOperator");
+        setCurrentOperandState("0");
+        setOperandsState(["0"]);
+      }
 
       // Update global result if non-null
       if (calculationResult) {
@@ -138,7 +163,6 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
     }
   };
 
-  // ? TODO: test all types
   const handleClick = () => {
     if (calcType === calcTypes.operandType) {
       handleOperand();
