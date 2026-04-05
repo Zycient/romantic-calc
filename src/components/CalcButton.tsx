@@ -264,7 +264,7 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
     <>
       {rawBtnVal === "=" && (
         <div
-          className="calc-button-eq flex justify-center items-center rounded-xs bg-linear-to-b from-indigo-100 dark:from-indigo-700 to-indigo-200 dark:to-indigo-600 hover:bg-gray-300 dark:hover:bg-gray-600 font-semibold select-none cursor-pointer"
+          className="calc-button-eq flex justify-center items-center w-full rounded-xs bg-linear-to-b from-indigo-100 dark:from-indigo-700 to-indigo-200 dark:to-indigo-600 hover:bg-gray-300 dark:hover:bg-gray-600 font-semibold select-none cursor-pointer"
           onClick={handleClick}
           title={handleTooltip()}
         >
@@ -273,7 +273,8 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
       )}
       {rawBtnVal !== "=" && (
         <div
-          className="calc-button flex justify-center items-center rounded-xs bg-linear-to-b from-slate-100 dark:from-slate-700 to-slate-200 dark:to-slate-600 hover:bg-gray-300 dark:hover:bg-gray-600 font-semibold select-none cursor-pointer"
+          className="calc-button flex justify-center items-center
+          w-full rounded-xs bg-linear-to-b from-slate-100 dark:from-slate-700 to-slate-200 dark:to-slate-600 hover:bg-gray-300 dark:hover:bg-gray-600 font-semibold select-none cursor-pointer"
           onClick={handleClick}
           title={handleTooltip()}
         >
