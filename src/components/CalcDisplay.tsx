@@ -27,7 +27,6 @@ const CalcDisplay = () => {
       ).reverse() as string[];
 
       // Iterate copy and splice in operators at every other index
-      console.log("CHECK LOOP"); //? TODO: REMOVE
       for (let i = 0; i < operands.length; i++) {
         // Every odd iteration only
         if (i % 2 !== 0) {
@@ -59,12 +58,11 @@ const CalcDisplay = () => {
   }, [operands, operators]);
 
   return (
-    // ? TODO: need to handle extra long results (do some text formatting so that dots... are used)
     <div className="calc-display flex flex-col justify-center items-end w-full pr-1 bg-linear-to-b from-slate-300 dark:from-slate-900 to-slate-100 dark:to-slate-700 rounded-xs">
-      <div className="calc-display-secondary font-light text-right text-sm">
+      <div className="calc-display-secondary font-light text-right text-sm text-ellipsis text-nowrap">
         {secondaryDisplayVal}
       </div>
-      <div className="calc-display-primary font-semibold text-right text-lg">
+      <div className="calc-display-primary font-semibold text-right text-lg text-ellipsis text-nowrap">
         {primaryDisplayVal}
       </div>
     </div>
