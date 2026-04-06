@@ -217,10 +217,11 @@ const CalcButton = ({ rawBtnVal, calcType = calcTypes.operandType }: props) => {
         setCurrentOperandState(calculationResult.toString());
 
         // Set calculation result as PREVIOUS operand behind current in global
-        setOperandsState([
-          calculationResult.toString(),
-          updatedOperands.slice(-1)[0],
-        ]);
+        const splicePoint =
+          updatedOperands.length > 1 ? updatedOperands.length - 3 : 0;
+        const splicedOperands = JSON.parse(JSON.stringify(updatedOperands));
+        splicedOperands.splice(splicePoint, 1, calculationResult.toString());
+        setOperandsState(splicedOperands);
       } else {
         console.error("Invalid calculation result in handleOperator");
         setCurrentOperandState("0");
