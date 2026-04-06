@@ -120,7 +120,21 @@ export const doCalculation = (operands: string[], operators: string[]) => {
 
     // Return formatted result obj w/additional operator to button so it can be set if needed
     return calcResult;
-  } else if (operands.length === 1 && operators.length === 1) {
+  } else if (
+    operands.length === 1 &&
+    operators.length === 1 &&
+    operators.slice(-1)[0] !== "="
+  ) {
+    // Parse Operand into number
+    const calcOperands = parseOperands(operands);
+
+    // Return parsed operand only
+    return calcOperands[0];
+  } else if (
+    operands.length === 1 &&
+    operators.length === 1 &&
+    operators.slice(-1)[0] === "="
+  ) {
     // ? EXAMPLE: 1= --> 1+1=2
     // Duplicate first operand and also use as second operand
     const fusedOperands = [...operands, operands.slice(-1)[0]];
