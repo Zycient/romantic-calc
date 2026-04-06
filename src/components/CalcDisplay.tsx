@@ -26,22 +26,26 @@ const CalcDisplay = () => {
         JSON.stringify(operators),
       ).reverse() as string[];
 
-      // Iterate copy and splice in operators at every other index
-      for (let i = 0; i < operands.length; i++) {
-        // Every odd iteration only
-        if (i % 2 !== 0) {
-          // Pop current operator to splice
-          let currentOperator;
-          if (localOperators.length > 0) {
-            currentOperator = localOperators.pop();
+      // If only one operand, just put together
+      if (expressionList.length === 1) {
+        expressionList.push(localOperators.slice(-1)[0]);
+      } else {
+        // Iterate copy and splice in operators at every other index
+        for (let i = 0; i < operands.length; i++) {
+          // Every odd iteration only
+          if (i % 2 !== 0) {
+            // Pop current operator to splice
+            let currentOperator;
+            if (localOperators.length > 0) {
+              currentOperator = localOperators.pop();
+            }
+            // Splice current operator into expression list
+            expressionList.splice(i, 0, currentOperator);
+          } else {
+            continue;
           }
-          // Splice current operator into expression list
-          expressionList.splice(i, 0, currentOperator);
-        } else {
-          continue;
         }
       }
-
       // Reformat into flat string for display
       setSecondaryDisplayVal(expressionList.join(" "));
     }
