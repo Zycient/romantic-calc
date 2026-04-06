@@ -26,7 +26,7 @@ const doOperation = (
 const parseOperands = (operands: string[]) => {
   // Parse operands
   const calcOperands: number[] = [];
-  for (const op in operands) {
+  for (const op of operands) {
     try {
       if (op.includes(".")) {
         calcOperands.push(parseFloat(op));
