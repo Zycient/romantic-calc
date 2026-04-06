@@ -23,7 +23,7 @@ const doOperation = (
   return calcResult;
 };
 
-const parseOperands = (operands: string[]) => {
+export const parseOperands = (operands: string[]) => {
   // Parse operands
   const calcOperands: number[] = [];
   for (const op of operands) {
